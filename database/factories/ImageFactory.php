@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Property;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "id_property" => Property::all()->random()->id,
+            "original_name" => fake()->unique()->numerify("house_img###.png"),
+            "hash_name" => fake()->unique()->numerify("#####.png")
         ];
     }
 }
