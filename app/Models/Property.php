@@ -10,6 +10,19 @@ class Property extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "name",
+        "price",
+        "location",
+        "description",
+        "bedrooms",
+        "bathrooms",
+        "for_rent",
+        "max_tenants",
+        "min_contract_time",
+        "accept_animals"
+    ];
+
     public function images(): HasMany
     {
         return $this->hasMany(Image::class);
