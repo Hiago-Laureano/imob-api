@@ -67,4 +67,10 @@ class PropertyController extends Controller
         }
         return response()->json(null, 201);
     }
+
+    public function update(StoreUpdatePropertyRequest $request, string $id){
+        $data = $request->validated();
+        Property::findOrFail($id)->update($data);
+        return response()->json(null, 204);
+    }
 }

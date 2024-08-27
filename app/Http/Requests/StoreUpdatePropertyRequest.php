@@ -22,7 +22,7 @@ class StoreUpdatePropertyRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
+        $rules = [
             "name" => ["required", "min:4", "max:255"],
             "price" => ["required", "numeric"],
             "location" => ["required", "min:8", "max:255"],
@@ -35,5 +35,16 @@ class StoreUpdatePropertyRequest extends FormRequest
             "accept_animals" => ["required_if:for_rent,=,1", "boolean"],
             "files.*" => ["nullable", "image"]
         ];
+
+        if($this->method() === "PUT"){
+            $rules["name"] = ["nullable", "min:4", "max:255"];
+            $rules["price"] = ["nullable", "numeric"];
+            $rules["location"] = ["nullable", "min:8", "max:255"];
+            $rules["description"] = ["nullable", "max:600"];
+            $rules["bedrooms"] = ["nullable", "numeric"];
+            $rules["bathrooms"] = ["nullable", "numeric"];
+        }
+
+        return $rules;
     }
 }
