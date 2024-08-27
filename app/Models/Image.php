@@ -10,6 +10,12 @@ class Image extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "property_id",
+        "original_name",
+        "link"
+    ];
+
     public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class);

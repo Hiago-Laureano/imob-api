@@ -15,7 +15,7 @@ class ImageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "link" => $this->hash_name
+            "link" => $this->link
         ];
     }
 }

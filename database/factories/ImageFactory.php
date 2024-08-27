@@ -20,7 +20,7 @@ class ImageFactory extends Factory
         return [
             "property_id" => Property::all()->random()->id,
             "original_name" => fake()->unique()->numerify("house_img###.png"),
-            "hash_name" => fake()->unique()->numerify("#####.png")
+            "link" => fake()->unique()->numerify("storage/images/#####.png")
         ];
     }
 }
