@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("name", 255);
             $table->decimal("price", 10, 2);
-            $table->text("location");
-            $table->longText("description");
+            $table->string("location", 255);
+            $table->text("description");
             $table->integer("bedrooms");
             $table->integer("bathrooms");
             $table->boolean("for_rent");
