@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdatePropertyRequest;
 use App\Http\Resources\PropertyResource;
+use App\Models\Image;
 use App\Models\Property;
 use Illuminate\Http\Request;
 
@@ -44,7 +46,25 @@ class PropertyController extends Controller
         return PropertyResource::collection($data->paginate(15));
     }
 
-    public function show(int $id){
-        return new PropertyResource(Property::where("id", "=", $id)->first());
+    public function show(string $id){
+        $data = Property::findOrFail($id);
+        return new PropertyResource($data);
+    }
+
+    public function destroy(string $id){
+        Property::findOrFail($id)->delete();
+        return response()->json(null, 204);
+    }
+
+    public function store(StoreUpdatePropertyRequest $request){
+        $data = $request->validated();
+        $property = Property::create($data);
+        if(isset($data["files"])){
+            foreach($data["files"] as $file){
+                $link = $file->store("images", "public");
+                Image::create(["property_id" => $property->id, "link" => "storage/".$link, "original_name" => $file->getClientOriginalName()]);
+            };
+        }
+        return response()->json(null, 201);
     }
 }
