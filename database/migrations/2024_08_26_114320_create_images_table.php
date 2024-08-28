@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId("property_id")->constrained()->onDelete("cascade");
             $table->string("original_name", 255);
             $table->string("link", 255);
-            $table->timestamps();
+            $table->timestamp("created_at")->useCurrent();
         });
     }
 

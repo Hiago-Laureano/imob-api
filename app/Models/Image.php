@@ -10,6 +10,8 @@ class Image extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         "property_id",
         "original_name",
