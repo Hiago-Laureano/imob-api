@@ -11,7 +11,7 @@ class StoreUpdateImageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,9 +22,9 @@ class StoreUpdateImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "property_id" => ["required"],
-            "original_name" => ["required", "min:4", "max:255"],
-            "hash_name" => ["required", "min:4", "max:255"]
+            "property_id" => ["required", "numeric"],
+            "files" => ["required", "array"],
+            "files.*" => ["required", "image"]
         ];
     }
 }

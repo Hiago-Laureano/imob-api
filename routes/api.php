@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PropertyController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/get-all", [PropertyController::class, "index"]);
@@ -9,3 +9,6 @@ Route::get("/get/{id}", [PropertyController::class, "show"]);
 Route::delete("/delete/{id}", [PropertyController::class, "destroy"]);
 Route::post("/post", [PropertyController::class, "store"]);
 Route::put("/update/{id}", [PropertyController::class, "update"]);
+
+Route::delete("/image-delete/{id}", [ImageController::class, "destroy"]);
+Route::post("/image-add", [ImageController::class, "store"]);
