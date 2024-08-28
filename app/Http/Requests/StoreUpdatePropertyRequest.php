@@ -33,6 +33,7 @@ class StoreUpdatePropertyRequest extends FormRequest
             "max_tenants" => ["required_if:for_rent,=,1", "numeric"],
             "min_contract_time" => ["required_if:for_rent,=,1", "numeric"],
             "accept_animals" => ["required_if:for_rent,=,1", "boolean"],
+            "files" => ["nullable", "array"],
             "files.*" => ["nullable", "image"]
         ];
 
