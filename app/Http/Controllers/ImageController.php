@@ -9,7 +9,10 @@ use App\Models\Property;
 class ImageController extends Controller
 {
     public function destroy(string $id){
-        Image::findOrFail($id)->delete();
+        $data = Image::findOrFail($id);
+        $link = str_replace("storage/images/", "", $data->link);
+        unlink(storage_path("app/public/images/".$link));
+        $data->delete();
         return response()->json(null, 204);
     }
 
