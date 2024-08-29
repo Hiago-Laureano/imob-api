@@ -52,7 +52,12 @@ class PropertyController extends Controller
     }
 
     public function destroy(string $id){
-        Property::findOrFail($id)->delete();
+        $property = Property::findOrFail($id);
+        foreach($property->images as $image){
+            $link = str_replace("storage/images/", "", $image->link);
+            unlink(storage_path("app/public/images/".$link));
+        }
+        $property->delete();
         return response()->json(null, 204);
     }
 
