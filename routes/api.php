@@ -17,3 +17,9 @@ Route::post("/image-add", [ImageController::class, "store"]);
 
 Route::post("/login", [AuthController::class, "login"]);
 Route::post("/logout", [AuthController::class, "logout"]);
+
+Route::get("/user-all", [UserController::class, "index"]);
+Route::get("/user-get/{id}", [UserController::class, "show"]);
+Route::delete("/user-delete/{id}", [UserController::class, "destroy"]);
+Route::put("/user-update/{id}", [UserController::class, "update"]);
+Route::post("/user-add", [UserController::class, "store"]);
