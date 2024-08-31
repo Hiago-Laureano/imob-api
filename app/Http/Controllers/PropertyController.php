@@ -52,12 +52,18 @@ class PropertyController extends Controller
     }
 
     public function show(string $id){
-        $data = Property::findOrFail($id);
+        $data = Property::find($id);
+        if(! $data){
+            return response()->json(["message" => "No query results"], 404);
+        }
         return new PropertyResource($data);
     }
 
     public function destroy(string $id){
-        $property = Property::findOrFail($id);
+        $property = Property::find($id);
+        if(! $property){
+            return response()->json(["message" => "Target with id={$id} not found"], 404);
+        }
         foreach($property->images as $image){
             $link = str_replace("storage/images/", "", $image->link);
             unlink(storage_path("app/public/images/".$link));
@@ -80,7 +86,11 @@ class PropertyController extends Controller
 
     public function update(StoreUpdatePropertyRequest $request, string $id){
         $data = $request->validated();
-        Property::findOrFail($id)->update($data);
+        $property = Property::find($id);
+        if(! $property){
+            return response()->json(["message" => "Target with id={$id} not found"], 404);
+        }
+        $property->update($data);
         return response()->noContent(204);
     }
 }
