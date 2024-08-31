@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer("max_tenants")->nullable();
             $table->integer("min_contract_time")->nullable();
             $table->boolean("accept_animals")->nullable();
+            $table->foreignId("user_id")->constrained()->restrictOnDelete();
             $table->timestamps();
         });
     }

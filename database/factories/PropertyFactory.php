@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,7 +28,8 @@ class PropertyFactory extends Factory
             "for_rent" => $for_rent,
             "max_tenants" => $for_rent ? fake()->numberBetween(2,5) : null,
             "min_contract_time" => $for_rent ? fake()->numberBetween(2,5) : null,
-            "accept_animals" => $for_rent ? fake()->boolean() : null
+            "accept_animals" => $for_rent ? fake()->boolean() : null,
+            "user_id" => User::all()->random()->id
         ];
     }
 }

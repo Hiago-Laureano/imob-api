@@ -28,7 +28,8 @@ class PropertyResource extends JsonResource
             "min_contract_time" => $this->min_contract_time,
             "accept_animals" => $this->accept_animals,
             "created_at" => Carbon::make($this->created_at)->format("d/m/Y"),
-            "images_links" =>  ImageResource::collection($this->images)
+            "images_links" =>  ImageResource::collection($this->images),
+            "post_by" => $this->user->name
         ];
     }
 }
