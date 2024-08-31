@@ -63,7 +63,7 @@ class PropertyController extends Controller
             unlink(storage_path("app/public/images/".$link));
         }
         $property->delete();
-        return response()->json(null, 204);
+        return response()->noContent(204);
     }
 
     public function store(StoreUpdatePropertyRequest $request){
@@ -75,12 +75,12 @@ class PropertyController extends Controller
                 Image::create(["property_id" => $property->id, "link" => "storage/".$link, "original_name" => $file->getClientOriginalName()]);
             };
         }
-        return response()->json(null, 201);
+        return response()->noContent(201);
     }
 
     public function update(StoreUpdatePropertyRequest $request, string $id){
         $data = $request->validated();
         Property::findOrFail($id)->update($data);
-        return response()->json(null, 204);
+        return response()->noContent(204);
     }
 }

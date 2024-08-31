@@ -17,7 +17,7 @@ class ImageController extends Controller
         $link = str_replace("storage/images/", "", $data->link);
         unlink(storage_path("app/public/images/".$link));
         $data->delete();
-        return response()->json(null, 204);
+        return response()->noContent(204);
     }
 
     public function store(StoreUpdateImageRequest $request){
@@ -27,6 +27,6 @@ class ImageController extends Controller
             $link = $file->store("images", "public");
             Image::create(["property_id" => $property->id, "link" => "storage/".$link, "original_name" => $file->getClientOriginalName()]);
         }
-        return response()->json(null, 201);
+        return response()->noContent(201);
     }
 }
