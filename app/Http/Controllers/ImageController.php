@@ -8,6 +8,10 @@ use App\Models\Property;
 
 class ImageController extends Controller
 {
+    public function __construct(){
+        $this->middleware("auth:sanctum")->only(["store", "destroy"]);
+    }
+
     public function destroy(string $id){
         $data = Image::findOrFail($id);
         $link = str_replace("storage/images/", "", $data->link);
