@@ -20,7 +20,7 @@ class PropertyController extends Controller
         $nameFilter = $request->get("name") ?? null;
         $locationFilter = $request->get("location") ?? null;
         $nBedroomsFilter = $request->get("bedrooms") ?? null;
-        $nBathroomsFilter = $request->get("bedrooms") ?? null;
+        $nBathroomsFilter = $request->get("bathrooms") ?? null;
         $maxPriceFilter = $request->get("max_price") ?? null;
         $forRentFilter = $request->get("for_rent") ?? null;
         $acceptAnimalsFilter = $request->get("accept_animals") ?? null;
