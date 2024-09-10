@@ -74,6 +74,7 @@ class PropertyController extends Controller
 
     public function store(StoreUpdatePropertyRequest $request){
         $data = $request->validated();
+        $data["user_id"] = $request->user()->id;
         $property = Property::create($data);
         if(isset($data["files"])){
             foreach($data["files"] as $file){
