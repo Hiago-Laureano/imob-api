@@ -21,7 +21,8 @@ class AuthController extends Controller
         if(! $firstUser){
             $user = User::create(["name" => "Administrator","email" => $data["email"], "password" => Hash::make($data["password"]), "superuser" => true]);
             $token = $user->createToken("auth-token", ["*"])->plainTextToken;
-            return response()->json(["message" => "First user created! Use your email and password for future logins", "auth-token" => $token], 200);
+            $name = $user->name;
+            return response()->json(["message" => "First user created! Use your email and password for future logins", "name" => $name, "auth-token" => $token], 201);
         }
         if(Auth::attempt($data)){
             if(! $request->user()->active){
