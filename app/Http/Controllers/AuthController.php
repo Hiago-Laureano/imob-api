@@ -28,7 +28,8 @@ class AuthController extends Controller
                 return response()->json(["message" => "Incorrect login"], 403);
             }
             $token = $request->user()->createToken("auth-token", ["*"])->plainTextToken;
-            return response()->json(["message" => "Success", "auth-token" => $token], 200);
+            $name = $request->user()->name;
+            return response()->json(["message" => "Success", "name" => $name,"auth-token" => $token], 200);
         }else{
             return response()->json(["message" => "Incorrect login"], 403);
         }
