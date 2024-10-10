@@ -2,34 +2,91 @@
 
 ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
 ![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
-This project is an API built with **PHP** and **Laravel** for real estates.
+Este projeto é uma API RESTful contruída com **PHP** e **Laravel** para imobiliárias.
+
+## Como usar o projeto
+
+Instale o Docker caso não possuir em sua maquina
+
+### Clone o Repositório
+```sh
+git clone https://github.com/Hiago-Laureano/imob-api.git
+```
+
+### Crie o arquivo .env
+```sh
+cp .env.example .env
+```
+
+### Atualize o arquivo .env com os dados abaixo, o restante altere com os dados que desejar
+```dosini
+DB_CONNECTION=mysql
+DB_HOST=db
+```
+
+### Suba os containers do projeto
+```sh
+docker-compose up -d
+```
+
+### Acesse o container da API para poder usar os comandos do Laravel
+```sh
+docker-compose exec api bash
+```
+
+### Instale as dependências do projeto
+```sh
+composer install
+```
+
+### Gere a key do projeto Laravel
+```sh
+php artisan key:generate
+```
+
+### Acessar o projeto
+
+[http://localhost:8000](http://localhost:8000)
+
+### Upload de imagens e Factory para imagens
+
+Para permitir acesso público às imagens postadas execute o seguinte comando:
+```sh
+php artisan storage:link
+```
+
+Caso for executar as Factories, antes crie uma pasta chamada "images" dentro de "storage/app/public"(Se a pasta não existir)
 
 ## API Endpoints
 
-Methods that require authentication are with * next to them
+Em aplicações que irão consumir está API, adicione "X-Requested-With: XMLHttpRequest" aos headers
 
-### Authentication
+As rotas que exigem autenticação são aquelas com "$" ao lado
 
-```markdown
-POST /login - Login into App (If there are no registered users, at the time of login, register the first user with the email and password provided)
-(Body:
+### Autenticação
+
+```
+POST /login - Login (se não houver usuários registrados, no momento do login, registra o primeiro usuário com o e-mail e a senha fornecidos)
+
+BODY:
     email[varchar],
     password[varchar]
-)
 
-POST* /logout - Logout into App (No body)
+
+POST$ /logout - Logout (No BODY)
 ```
 
-### Properties
+### Propriedades
 
-```markdown
-GET /get-all - Get a list of all properties (URL Params: page, name, location, bedrooms, bathrooms, max_price, for_rent and accept_animals)
+```
+GET /properties - Obter uma lista de todas as propriedades (URL Params: page, name, location, bedrooms, bathrooms, max_price, for_rent and accept_animals)
 
-GET /get/{id} - Get specific property ({id} is the target id)
+GET /properties/{id} - Obter uma propriedade específica ({id} é o id da propriedade)
 
-POST* /post - Register a new property 
-(Body: 
+POST$ /properties - Registrar uma nova propriedade 
+BODY: 
     name[varchar], 
     price[decimal], 
     location[varchar], 
@@ -39,43 +96,43 @@ POST* /post - Register a new property
     for_rent[boolean], 
     files[][Files]
     
-If for_rent = 1 it is also necessary: 
+Se for_rent = 1, então também será necessário: 
     max_tenants[integer], 
     min_contract_time[integer], 
     accept_animals[boolean]
-)
 
-PUT* /update/{id} - Update a property ({id} is the target id; It can contain in its body any field present in the POST method)
 
-DELETE* /delete/{id} - Delete a property ({id} is the target id)
+PUT$ /properties/{id} - Atualizar dados de uma propriedade ({id} é o id da propriedade; Pode conter em seu BODY qualquer campo presente no método POST, exceto: files[][Files])
+
+DELETE$ /properties/{id} - Deletar uma propriedade ({id} é o id da propriedade)
 ```
-### Images
+### Imagens
 
-```markdown
-POST* /image-add - Register a new image
-(Body: 
+```
+POST$ /image-add - Registrar uma nova imagem 
+Body: 
     property_id[integer], 
     files[][Files]
-)
 
-DELETE* /image-delete/{id} - Delete a image ({id} is the target id)
+
+DELETE$ /image-delete/{id} - Deletar uma imagem ({id} é o id da imagem)
 ```
 
-### Users
+### Usuários
 
-```markdown
-GET* /user-all - Get a list of all users
+```
+GET$ /user - Obter uma lista de todas os usuários
 
-GET* /user-get/{id} - Get specific user ({id} is the target id)
+GET$ /user/{id} - Obter um usuário específico ({id} é o id do usuário)
 
-POST* /user-add - Register a new user *only superusers*
-(Body: 
+POST$ /user - Registrar um novo usuário  *apenas para superusers*
+Body: 
     name[varchar], 
     email[varchar], 
     password[varchar]
-)
 
-PUT* /user-update/{id} - Update a user *only superusers* ({id} is the target id; It can contain in its body any field present in the POST method)
 
-DELETE* /user-delete/{id} - Delete a user *only superusers* ({id} is the target id)
+PUT$ /user/{id} - Atualizar dados de um usuário *apenas para superusers* ({id} é o id do usuário; Pode conter em seu BODY qualquer campo presente no método POST)
+
+DELETE$ /user/{id} - Deletar um usuário ({id} é o id do usuário)
 ```
