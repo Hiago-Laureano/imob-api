@@ -6,11 +6,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get("/get-all", [PropertyController::class, "index"]);
-Route::get("/get/{id}", [PropertyController::class, "show"]);
-Route::delete("/delete/{id}", [PropertyController::class, "destroy"]);
-Route::post("/post", [PropertyController::class, "store"]);
-Route::put("/update/{id}", [PropertyController::class, "update"]);
+Route::apiResource("/properties", PropertyController::class);
 
 Route::delete("/image-delete/{id}", [ImageController::class, "destroy"]);
 Route::post("/image-add", [ImageController::class, "store"]);
@@ -18,8 +14,4 @@ Route::post("/image-add", [ImageController::class, "store"]);
 Route::post("/login", [AuthController::class, "login"]);
 Route::post("/logout", [AuthController::class, "logout"]);
 
-Route::get("/user-all", [UserController::class, "index"]);
-Route::get("/user-get/{id}", [UserController::class, "show"]);
-Route::delete("/user-delete/{id}", [UserController::class, "destroy"]);
-Route::put("/user-update/{id}", [UserController::class, "update"]);
-Route::post("/user-add", [UserController::class, "store"]);
+Route::apiResource("/user", UserController::class);

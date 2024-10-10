@@ -32,12 +32,14 @@ class StoreUpdatePropertyRequest extends FormRequest
             "for_rent" => ["required", "boolean"],
             "max_tenants" => ["required_if:for_rent,=,1", "numeric"],
             "min_contract_time" => ["required_if:for_rent,=,1", "numeric"],
-            "accept_animals" => ["required_if:for_rent,=,1", "boolean"],
-            "files" => ["nullable", "array"],
-            "files.*" => ["nullable", "image"]
+            "accept_animals" => ["required_if:for_rent,=,1", "boolean"]
         ];
 
-        if($this->method() === "PUT"){
+        if($this->method() === "POST"){
+            $rules["files"] = ["nullable", "array"];
+            $rules["files.*"] = ["nullable", "image"];
+        }
+        elseif($this->method() === "PUT" || $this->method() === "PATCH"){
             $rules["name"] = ["nullable", "min:4", "max:255"];
             $rules["price"] = ["nullable", "numeric"];
             $rules["location"] = ["nullable", "min:8", "max:255"];

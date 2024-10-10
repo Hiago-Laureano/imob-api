@@ -17,10 +17,11 @@ class ImageFactory extends Factory
      */
     public function definition(): array
     {
+    $imageName = fake()->image(storage_path("app/public/images/"), width: 250, height: 250, fullPath: False);
         return [
             "property_id" => Property::all()->random()->id,
             "original_name" => fake()->unique()->numerify("house_img###.png"),
-            "link" => fake()->unique()->numerify("storage/images/#####.png")
+            "link" => "storage/images/{$imageName}"
         ];
     }
 }

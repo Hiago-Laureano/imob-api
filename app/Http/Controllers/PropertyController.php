@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware("auth:sanctum")->only(["store", "update", "destroy"]);
     }
 
